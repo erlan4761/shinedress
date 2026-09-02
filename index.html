@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHINE_DRESS | Модный дом & Ателье Бишкек</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fdfbf7;
+            --bg-dark: #111;
+            --text-main: #222;
+            --text-muted: #777;
+            --accent: #c9a35e;
+            --font-head: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background-color: var(--bg-color); color: var(--text-main); line-height: 1.7; scroll-behavior: smooth; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        
+        header { position: sticky; top: 0; background-color: rgba(253, 251, 247, 0.98); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; border-bottom: 1px solid rgba(201, 163, 94, 0.2); backdrop-filter: blur(5px); }
+        .logo { font-family: var(--font-head); font-size: 28px; font-weight: 600; letter-spacing: 3px; color: var(--text-main); z-index: 1001; }
+        
+        nav { display: flex; gap: 30px; transition: 0.4s ease; }
+        nav a { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; transition: color 0.4s ease; }
+        nav a:hover { color: var(--accent); }
+
+        .menu-btn { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; }
+        .menu-btn span { width: 30px; height: 2px; background-color: var(--text-main); transition: 0.3s; }
+
+        .hero { position: relative; text-align: center; padding: 160px 20px; background: linear-gradient(135deg, #f5f0e6 0%, var(--bg-color) 100%); overflow: hidden; }
+        .hero h1 { font-family: var(--font-head); font-size: 56px; margin-bottom: 20px; font-weight: 400; letter-spacing: 4px; line-height: 1.2; }
+        .hero p { font-size: 16px; color: var(--text-muted); max-width: 600px; margin: 0 auto 50px; font-weight: 300; line-height: 1.8; }
+        
+        .btn { display: inline-block; padding: 16px 45px; background-color: var(--text-main); color: #fff; text-transform: uppercase; font-size: 13px; letter-spacing: 2px; transition: all 0.4s ease; border: 1px solid var(--text-main); }
+        .btn:hover { background-color: transparent; color: var(--text-main); }
+        .btn-whatsapp { background-color: #25D366; border-color: #25D366; color: #fff; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); margin-top: 20px; }
+        .btn-whatsapp:hover { background-color: #fff; color: #25D366; border-color: #25D366; box-shadow: none; }
+
+        section { padding: 100px 5%; text-align: center; }
+        section h2 { font-family: var(--font-head); font-size: 40px; font-weight: 400; margin-bottom: 60px; text-transform: uppercase; letter-spacing: 3px; position: relative; display: inline-block; }
+        section h2::after { content: ''; display: block; width: 40px; height: 1px; background-color: var(--accent); margin: 15px auto 0; }
+
+        .services { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .service-card { background: #fff; padding: 60px 40px; border: 1px solid #eee; width: 100%; max-width: 450px; transition: all 0.5s ease; position: relative; overflow: hidden; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background-color: var(--accent); transform: scaleX(0); transition: transform 0.5s ease; transform-origin: left; }
+        .service-card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.04); transform: translateY(-10px); }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-card h3 { font-family: var(--font-head); font-size: 26px; margin-bottom: 20px; font-weight: 600; letter-spacing: 1px; }
+        .service-card p { color: var(--text-muted); font-size: 15px; font-weight: 300; }
+
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .portfolio-item { position: relative; background-color: #e0dcd3; aspect-ratio: 3/4; overflow: hidden; cursor: pointer; }
+        .portfolio-item img, .portfolio-item video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s ease; }
+        .portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.5s ease; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+        .portfolio-overlay span { color: #fff; font-family: var(--font-head); font-size: 22px; letter-spacing: 2px; transform: translateY(20px); transition: transform 0.5s ease; border-bottom: 1px solid #fff; padding-bottom: 5px; }
+        .portfolio-item:hover img, .portfolio-item:hover video { transform: scale(1.08); }
+        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+        .portfolio-item:hover .portfolio-overlay span { transform: translateY(0); }
+
+        .steps { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; }
+        .step { flex: 1; min-width: 220px; padding: 30px 20px; text-align: center; }
+        .step-number { font-family: var(--font-head); font-size: 50px; color: var(--accent); font-weight: 400; margin-bottom: 15px; opacity: 0.7; }
+        .step h4 { font-size: 16px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+        .step p { font-size: 14px; color: var(--text-muted); font-weight: 300; }
+
+        .contacts-bg { background-color: var(--bg-dark); color: #fff; padding: 100px 5%; }
+        .contacts-bg h2 { color: #fff; }
+        .contacts-wrapper { display: flex; flex-direction: column; align-items: center; max-width: 600px; margin: 0 auto; text-align: center; }
+        .contact-info { font-size: 18px; font-weight: 300; line-height: 2.2; margin-bottom: 30px; }
+        .contact-info strong { font-weight: 500; color: var(--accent); letter-spacing: 1px; }
+        
+        footer { padding: 40px; text-align: center; font-size: 12px; color: #666; background-color: var(--bg-dark); border-top: 1px solid rgba(255,255,255,0.05); text-transform: uppercase; letter-spacing: 2px; }
+
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); opacity: 0; transition: opacity 0.3s ease; }
+        .modal.show { display: flex; align-items: center; justify-content: center; opacity: 1; }
+        .modal-content { max-width: 90%; max-height: 90vh; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease; object-fit: contain; }
+        @keyframes zoomIn { from {transform: scale(0.95); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+        .close-modal { position: absolute; top: 20px; right: 40px; color: #fff; font-size: 40px; font-weight: 300; cursor: pointer; transition: 0.3s; z-index: 2001; }
+        .close-modal:hover { color: var(--accent); transform: scale(1.1); }
+
+        .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .menu-btn { display: flex; }
+            nav { position: fixed; top: 0; right: -100%; width: 250px; height: 100vh; background-color: #fdfbf7; flex-direction: column; align-items: center; padding-top: 100px; box-shadow: -5px 0 20px rgba(0,0,0,0.1); z-index: 1000; }
+            nav.active { right: 0; }
+            nav a { font-size: 16px; margin-bottom: 20px; }
+            .menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .menu-btn.active span:nth-child(2) { opacity: 0; }
+            .menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+            .hero h1 { font-size: 38px; }
+            .hero { padding: 120px 20px 80px; }
+            section { padding: 70px 20px; }
+            section h2 { font-size: 32px; }
+            .contact-info { font-size: 16px; }
+            .contact-info strong { display: block; margin-top: 10px; margin-bottom: 2px; }
+            .close-modal { right: 20px; top: 10px; font-size: 50px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">SHINE_DRESS</div>
+        <div class="menu-btn" id="menuBtn">
+            <span></span><span></span><span></span>
+        </div>
+        <nav id="navMenu">
+            <a href="#services">Услуги</a>
+            <a href="#portfolio">Lookbook</a>
+            <a href="#steps">Процесс</a>
+            <a href="#contacts">Контакты</a>
+        </nav>
+    </header>
+
+    <section class="hero fade-up visible">
+        <h1>МОДНЫЙ ДОМ<br>& АТЕЛЬЕ</h1>
+        <p>Авторские платья. Прокат эксклюзивных коллекций и индивидуальный пошив по вашим меркам в Бишкеке.</p>
+        <a href="https://wa.me/996706856580" class="btn btn-whatsapp" target="_blank">Записаться на примерку</a>
+    </section>
+
+    <section id="services">
+        <h2 class="fade-up">Что мы предлагаем</h2>
+        <div class="services">
+            <div class="service-card fade-up">
+                <h3>Прокат платьев</h3>
+                <p>Коллекционные вечерние и коктейльные наряды для ваших особенных событий и фотосессий. Сияйте, не покупая лишнего.<br> Размеры: XS, S, M</p>
+            </div>
+            <div class="service-card fade-up">
+                <h3>Покупка платьев</h3>
+                <p>Каждая модель отшивается индивидуально по вашим меркам за 1–3 дня. Вы получаете новое дизайнерское платье с идеальной посадкой по фигуре.</p>
+            </div>
+            
+            <div class="service-card fade-up">
+                <h3>Индивидуальный пошив</h3>
+                <p>Создаем платье вашей мечты с нуля. От разработки уникального эскиза и подбора тканей до идеальной посадки по вашей фигуре.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <h2 class="fade-up">Lookbook 🤍</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-up">
+                <video src="SaveClip.App_AQM9U9QCUsxeEMbjQ0mQ1eYoDeAmdtrVNAQubj28LT5SSQTMw0Y7sBP_MXujCz7El3rp9wQiLOrx1ePp3hIIOOqd_uKV1Npo_VXAfJQ.mp4" autoplay loop muted playsinline></video>
+                <div class="portfolio-overlay"><span>Смотреть</span></div>
+            </div>
+            <div class="portfolio-item fade-up">
+                <video src="video2.mov" autoplay loop muted playsinline></video>
+                <div class="portfolio-overlay"><span>Смотреть</span></div>
+            </div>
+            <div class="portfolio-item fade-up">
+                <video src="video4.mp4" autoplay loop muted playsinline></video>
+                <div class="portfolio-overlay"><span>Смотреть</span></div>
+            </div>
+            <div class="portfolio-item fade-up">
+                <video src="video4.mov" autoplay loop muted playsinline></video>
+                <div class="portfolio-overlay"><span>Смотреть</span></div>
+            </div>
+            <div class="portfolio-item fade-up"><img src="snapgram.io_1tjw6u9i2o1a.jpg" alt="Платье"><div class="portfolio-overlay"><span>Смотреть</span></div></div>
+            <div class="portfolio-item fade-up"><img src="snapgram.io_36qa1na9u4o4.jpg" alt="Платье"><div class="portfolio-overlay"><span>Смотреть</span></div></div>
+            <div class="portfolio-item fade-up"><img src="snapgram.io_503tyngazg5t.jpg" alt="Платье"><div class="portfolio-overlay"><span>Смотреть</span></div></div>
+            <div class="portfolio-item fade-up"><img src="snapgram.io_5drq7qkvffge.jpg" alt="Платье"><div class="portfolio-overlay"><span>Смотреть</span></div></div>
+            <div class="portfolio-item fade-up"><img src="snapgram.io_9kgb0x18ilal.jpg" alt="Платье"><div class="portfolio-overlay"><span>Смотреть</span></div></div>
+            <div class="portfolio-item fade-up"><img src="snapgram.io_a5tykvejtnhn.jpg" alt="Платье"><div class="portfolio-overlay"><span>Смотреть</span></div></div>
+            <div class="portfolio-item fade-up"><img src="snapgram.io_ackyj1yov4ts.jpg" alt="Платье"><div class="portfolio-overlay"><span>Смотреть</span></div></div>
+            <div class="portfolio-item fade-up"><img src="snapgram1.jpg" alt="Платье"><div class="portfolio-overlay"><span>Смотреть</span></div></div>
+
+        </div>
+        <br><br><br>
+        <a href="https://instagram.com/shine_dress_" class="btn fade-up" target="_blank">Больше работ в Instagram</a>
+    </section>
+
+    <section id="steps" style="background-color: #fff;">
+        <h2 class="fade-up">Процесс создания</h2>
+        <div class="steps">
+            <div class="step fade-up">
+                <div class="step-number">01</div>
+                <h4>Заявка</h4>
+                <p>Вы пишете нам, и мы выбираем удобное время для встречи.</p>
+            </div>
+            <div class="step fade-up">
+                <div class="step-number">02</div>
+                <h4>Встреча</h4>
+                <p>Примерка коллекций или обсуждение эскиза и снятие мерок.</p>
+            </div>
+            <div class="step fade-up">
+                <div class="step-number">03</div>
+                <h4>Создание</h4>
+                <p>Магия пошива или подготовка выбранного платья к вашему дню.</p>
+            </div>
+            <div class="step fade-up">
+                <div class="step-number">04</div>
+                <h4>Ваш выход</h4>
+                <p>Вы забираете идеальный наряд и сияете на мероприятии.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts" class="contacts-bg">
+        <h2 class="fade-up">Ждем вас в гости</h2>
+        <div class="contacts-wrapper">
+            <div class="contact-info fade-up">
+                <p><strong>АДРЕС:</strong> г. Бишкек, ул. 7 Апреля, 27/2</p>
+                <p><strong>РЕЖИМ РАБОТЫ:</strong> ПН-СБ с 11:00 до 19:00</p>
+                <p><strong>WHATSAPP:</strong> +996 706 856 580</p>
+            </div>
+            <a href="https://wa.me/996706856580" class="btn btn-whatsapp fade-up" target="_blank">Написать в WhatsApp</a>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 SHINE_DRESS. Модный дом и ателье.
+    </footer>
+
+    <div id="mediaModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage" style="display: none;">
+        <video class="modal-content" id="modalVideo" style="display: none;" controls playsinline></video>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuBtn = document.getElementById("menuBtn");
+            const navMenu = document.getElementById("navMenu");
+            const navLinks = navMenu.querySelectorAll("a");
+
+            menuBtn.addEventListener("click", function() {
+                menuBtn.classList.toggle("active");
+                navMenu.classList.toggle("active");
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener("click", () => {
+                    menuBtn.classList.remove("active");
+                    navMenu.classList.remove("active");
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+            
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+            const modal = document.getElementById("mediaModal");
+            const modalImg = document.getElementById("modalImage");
+            const modalVid = document.getElementById("modalVideo");
+            const closeModal = document.querySelector(".close-modal");
+            const portfolioItems = document.querySelectorAll(".portfolio-item");
+
+            function hideModal() {
+                modal.classList.remove("show");
+                document.body.style.overflow = "auto";
+                modalVid.pause();
+                modalVid.src = "";
+            }
+
+            portfolioItems.forEach(item => {
+                item.addEventListener("click", function() {
+                    const img = this.querySelector("img");
+                    const vid = this.querySelector("video");
+                    
+                    if (img) {
+                        modalImg.src = img.src;
+                        modalImg.style.display = "block";
+                        modalVid.style.display = "none";
+                        modal.classList.add("show");
+                        document.body.style.overflow = "hidden";
+                    } else if (vid) {
+                        modalVid.src = vid.src;
+                        modalVid.style.display = "block";
+                        modalImg.style.display = "none";
+                        modal.classList.add("show");
+                        modalVid.play();
+                        document.body.style.overflow = "hidden";
+                    }
+                });
+            });
+
+            closeModal.addEventListener("click", hideModal);
+            modal.addEventListener("click", function(e) {
+                if (e.target !== modalImg && e.target !== modalVid) {
+                    hideModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
